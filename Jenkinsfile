@@ -18,6 +18,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 // Ensure Go modules are used
+                sh 'go get -u github.com/gin-gonic/gin'
                 sh 'go mod tidy'
             }
         }

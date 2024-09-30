@@ -36,7 +36,9 @@ pipeline {
         stage('Run Application') {
             steps {
                 // Run the Go application (optional for testing)
-                sh './gin-app &'  
+                sh './gin-app &'
             }
         }
+    }
 }
+

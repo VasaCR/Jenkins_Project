@@ -3,7 +3,8 @@ pipeline {
 
     environment {
         GO_VERSION = "1.21.6"
-        IMAGE_NAME = "vasachakradhar796/image" // Change this to your Docker Hub username and desired image name
+        IMAGE_NAME = "vasachakradhar796/image" // Replace with your Docker Hub username and desired image name
+        IMAGE_TAG = "latest" // Tag for the Docker image
         DOCKER_CREDENTIALS_ID = "81c0cd89-e4e2-4ee2-93c6-5e471ff3f1e7" // Jenkins credentials ID for Docker Hub
     }
 
@@ -14,6 +15,7 @@ pipeline {
                 git 'https://github.com/VasaCR/Jenkins_Project.git'
             }
         }
+
         stage('Build') {
             steps {
                 // Build the Go application
@@ -24,8 +26,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build Docker image
-                    sh "docker build -t ${IMAGE_NAME} ."
+                    // Build Docker image and tag it
+                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
                 }
             }
         }
@@ -42,7 +44,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 // Push the Docker image to Docker Hub
-                sh "docker push ${IMAGE_NAME}"
+                sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
             }
         }
     }

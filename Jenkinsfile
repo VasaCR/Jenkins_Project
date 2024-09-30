@@ -14,15 +14,6 @@ pipeline {
                 git 'https://github.com/VasaCR/Jenkins_Project.git'
             }
         }
-
-        stage('Install Dependencies') {
-            steps {
-                // Ensure Go modules are used
-                sh 'go get -u github.com/gin-gonic/gin'
-                sh 'go mod tidy'
-            }
-        }
-
         stage('Build') {
             steps {
                 // Build the Go application

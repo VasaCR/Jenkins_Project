@@ -3,9 +3,9 @@ pipeline {
 
     environment {
         GO_VERSION = "1.21.6"
-        IMAGE_NAME = "vasachakradhar796/image" // Replace with your Docker Hub username and desired image name
-        IMAGE_TAG = "latest" // Tag for the Docker image
-        DOCKER_CREDENTIALS_ID = "81c0cd89-e4e2-4ee2-93c6-5e471ff3f1e7" // Jenkins credentials ID for Docker Hub
+        IMAGE_NAME = "vasachakradhar796/image"
+        IMAGE_TAG = "latest"
+        DOCKER_CREDENTIALS_ID = "81c0cd89-e4e2-4ee2-93c6-5e471ff3f1e7"
     }
 
     stages {
@@ -18,33 +18,33 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Build the Go application
-                sh 'go build -o gin-app'
+                // Build the Go application using batch command for Windows
+                bat 'go build -o gin-app.exe'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build Docker image and tag it
-                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                    // Build Docker image using batch command for Windows
+                    bat "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
                 }
             }
         }
 
         stage('Login to Docker Hub') {
             steps {
-                // Login to Docker Hub
+                // Login to Docker Hub using batch command for Windows
                 withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
+                    bat "echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin"
                 }
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                // Push the Docker image to Docker Hub
-                sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                // Push the Docker image to Docker Hub using batch command for Windows
+                bat "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
             }
         }
     }

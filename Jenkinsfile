@@ -36,7 +36,7 @@ pipeline {
             steps {
                 // Login to Docker Hub using batch command for Windows
                 withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    bat "echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin"
+                    bat "docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%"
                 }
             }
         }

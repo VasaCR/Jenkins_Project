@@ -39,13 +39,4 @@ pipeline {
                 sh './gin-app &'  
             }
         }
-    }
-
-    post {
-        always {
-            // Clean up after build
-            sh 'killall gin-app || true'
-            cleanWs()
-        }
-    }
 }

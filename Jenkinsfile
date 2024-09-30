@@ -12,7 +12,6 @@ pipeline {
                 git 'https://github.com/VasaCR/Jenkins_Project.git'
             }
         }
-
         stage('Install Dependencies') {
             steps {
                 // Ensure Go modules are used
@@ -37,16 +36,8 @@ pipeline {
         stage('Run Application') {
             steps {
                 // Run the Go application (optional for testing)
-                sh './gin-app &'  
+                sh './gin-app &'
             }
-        }
-    }
-
-    post {
-        always {
-            // Clean up after build
-            sh 'killall gin-app || true'
-            cleanWs()
         }
     }
 }

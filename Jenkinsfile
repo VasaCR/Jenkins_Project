@@ -12,17 +12,6 @@ pipeline {
                 git 'https://github.com/VasaCR/Jenkins_Project.git'
             }
         }
-
-        stage('Set Up Go Environment') {
-            steps {
-                // Install Go and set up environment
-                sh 'wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz'
-                sh 'sudo tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz'
-                sh 'export PATH=$PATH:/usr/local/go/bin'
-                sh 'go version'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 // Ensure Go modules are used
